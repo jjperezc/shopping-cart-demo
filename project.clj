@@ -4,6 +4,6 @@
                  [ring "1.10.0"]
                  [compojure "1.7.0"]
                  [hiccup "1.0.5"]
-                 [seancorfield/next.jdbc "1.3.925"]
+                 [seancorfield/next.jdbc "1.2.659"]
                  [org.postgresql/postgresql "42.7.3"]]
   :main shopping-cart-demo.core)
