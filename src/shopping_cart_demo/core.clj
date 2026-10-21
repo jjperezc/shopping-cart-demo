@@ -1,6 +1,5 @@
 (ns shopping-cart-demo.core
-  (:require [ring.adapter.jetty :refer [run-jetty]]
-            [ring.middleware.session :refer [wrap-session]]
+  (:require [ring.adapter.jetty :refer [run-jetty]] 
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]]
