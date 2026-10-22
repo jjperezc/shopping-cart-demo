@@ -33,3 +33,20 @@
 (defn delete-product [id]
   (jdbc/execute! ds
                  ["UPDATE products SET deleted = TRUE WHERE id = ?" "admin" id]))
+
+(defn bulk-insert-products [rows created-by]
+  (doseq [row rows]
+    (println "Processing row:" row created-by)
+    (let [{:keys [name sku description category price stock weight_kg]} row]
+      (when (and category name sku price stock)
+        (jdbc/execute! ds
+                       ["INSERT INTO products (category_id, name, sku, description, price, stock, weight_kg, created_by)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                        (Integer/parseInt category)
+                        name
+                        sku
+                        description
+                        (Double/parseDouble price)
+                        (Integer/parseInt stock)
+                        (when weight_kg (Double/parseDouble weight_kg))
+                        created-by])))))

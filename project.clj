@@ -5,5 +5,6 @@
                  [compojure "1.7.0"]
                  [hiccup "1.0.5"]
                  [seancorfield/next.jdbc "1.2.659"]
-                 [org.postgresql/postgresql "42.7.3"]]
+                 [org.postgresql/postgresql "42.7.3"]
+                 [org.clojure/data.csv "1.1.0"]]
   :main shopping-cart-demo.core)

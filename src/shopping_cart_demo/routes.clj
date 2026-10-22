@@ -3,7 +3,8 @@
             [compojure.route :as route]
             [hiccup.page :refer [html5]]
             [shopping-cart-demo.auth :as auth]
-            [shopping-cart-demo.db :as db]))
+            [shopping-cart-demo.db :as db]
+            [shopping-cart-demo.csv :as csv]))
 
 
 ;; --- Pages ---
@@ -63,6 +64,15 @@
      "Category ID: " [:input {:type "text" :name "category_id" :value category_id}] [:br]
      [:input {:type "submit" :value "Update"}]]]))
 
+(defn bulk-upload-form []
+  (html5
+   [:head [:title "Bulk Upload"]]
+   [:body
+    [:h2 "Bulk Product Upload"]
+    [:form {:method "POST" :action "/products/bulk" :enctype "multipart/form-data"}
+     "Upload CSV: " [:input {:type "file" :name "csvfile"}] [:br]
+     [:input {:type "submit" :value "Upload"}]]]))
+
 ;; --- Routes ---
 (defroutes app-routes
   (GET "/" [] (login-page))
@@ -103,5 +113,12 @@
   ;;(println "BODY:" (:body request))
   ;;(str "form-params: " (:form-params request)
   ;;     " | params: " (:params request)))
+
+  (GET "/products/bulk" [] (bulk-upload-form))
+  (POST "/products/bulk" [csvfile]
+    (let [file (:tempfile csvfile)
+          rows (csv/parse-csv file)]
+      (db/bulk-insert-products rows "admin")
+      (product-list-page (db/get-products))))
           
   (route/not-found "Page not found"))
