@@ -3,6 +3,7 @@
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]]
+            [ring.middleware.session :refer [wrap-session]]
             [shopping-cart-demo.routes :refer [app-routes]])
   (:gen-class))
 
@@ -10,7 +11,8 @@
   (-> app-routes
       wrap-keyword-params
       wrap-params
-      wrap-multipart-params))
+      wrap-multipart-params
+      (wrap-session {:cookie-attrs {:http-only true :same-site :lax}})))
 
 (defn -main []
   (run-jetty app {:port 3000 :join? false}))
