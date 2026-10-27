@@ -4,8 +4,8 @@
 (defn- parse-int [s]
   (try (Integer/parseInt (str/trim s)) (catch Exception _ nil)))
 
-(defn- parse-double [s]
-  (try (Double/parseDouble (str/trim s)) (catch Exception _ nil)))
+;;(defn- parse-double [s]
+;;  (try (Double/parseDouble (str/trim s)) (catch Exception _ nil)))
 
 (defn validate-product
   "Returns {:errors [...]} or {:product {...parsed values...}}"
