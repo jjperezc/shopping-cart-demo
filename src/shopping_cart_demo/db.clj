@@ -4,14 +4,17 @@
             [clojure.string :as str]
             [shopping-cart-demo.validation :as validation]))
 
-(def db-spec
-  {:dbtype "postgresql"
-   :dbname "shopping"
-   :host "localhost"
-   :user "postgres"
-   :password "postgres"})
+(defn- env [k default]
+  (or (System/getenv k) default))
 
-;;(def ds (jdbc/get-datasource db-spec))
+(def db-spec
+  {:dbtype   "postgresql"
+   :dbname   (env "DB_NAME" "shopping")
+   :host     (env "DB_HOST" "localhost")
+   :port     (Integer/parseInt (env "DB_PORT" "5432"))
+   :user     (env "DB_USER" "postgres")
+   :password (env "DB_PASSWORD" "postgres")})
+
 (def ds
   (jdbc/with-options (jdbc/get-datasource db-spec)
     {:builder-fn rs/as-unqualified-maps}))

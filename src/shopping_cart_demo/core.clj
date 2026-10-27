@@ -15,4 +15,5 @@
       (wrap-session {:cookie-attrs {:http-only true :same-site :lax}})))
 
 (defn -main []
-  (run-jetty app {:port 3000 :join? false}))
+  (let [port (Integer/parseInt (or (System/getenv "PORT") "3000"))]
+    (run-jetty app {:port port :join? true})))
