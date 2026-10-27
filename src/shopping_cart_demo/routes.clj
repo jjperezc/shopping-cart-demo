@@ -293,8 +293,8 @@
           {:status 303 :headers {"Location" "/catalog"}
            :session (with-meta {:username username :cart-id cart-id} {:recreate true})
            :body ""}))
-      {:status 200
-       :body {:status 401 :body (login-page "Invalid username or password")}}))
+       {:status 401
+       :body (login-page "Invalid username or password")}))
 
   (GET "/logout" []
     {:status 302 :headers {"Location" "/"} :session nil :body ""}))
