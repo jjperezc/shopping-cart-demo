@@ -1,12 +1,7 @@
-.clj-kondo/.cache/v1/lock
-.clj-kondo/.cache/v1/clj/shopping-cart-de.csv.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart-dem.csv.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart-demo.auth.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart-demo.core.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart-demo.csv.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart-demo.db.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart-demo.routes.transit.json
-.clj-kondo/.cache/v1/clj/shopping-cart.csv.transit.json
+.clj-kondo/.cache
 .lsp/.cache/db.transit.json
 target/classes/META-INF/maven/shopping-cart-demo/shopping-cart-demo/pom.properties
 target/stale/leiningen.core.classpath.extract-native-dependencies
+logs
+target
+test
