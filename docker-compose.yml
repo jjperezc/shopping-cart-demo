@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: shopping_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    volumes:
+      - pgdata:/var/lib/postgresql
+      # every .sql file here runs once, in alphabetical order, on first start
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # -h 127.0.0.1 matters: during init Postgres runs a temporary server that
+      # only listens on the unix socket, so a TCP check passes only when it is truly ready
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres -d shopping_demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    # uncomment to reach the DB from your host (5433 avoids clashing with a local Postgres)
+    # ports:
+    #   - "5433:5432"
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: shopping_demo
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "3030:3030"
+    volumes:
+      - applogs:/app/logs
+
+volumes:
+  pgdata:
+  applogs:
