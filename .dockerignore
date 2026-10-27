@@ -1,0 +1,12 @@
+.git
+.gitignore
+.lsp
+.clj-kondo
+target
+logs
+test
+db
+README.md
+Dockerfile
+docker-compose.yml
+.env
